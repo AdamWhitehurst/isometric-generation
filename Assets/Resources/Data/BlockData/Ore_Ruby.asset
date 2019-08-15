@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfaafd3ed9362b4ba079b2ed4783ca0, type: 3}
+  m_Name: Ore_Ruby
+  m_EditorClassIdentifier: 
+  UID: 41dd6b2aa819b4a448cd60afb017f78c
+  Top: 52
+  North: 52
+  South: 52
+  East: 52
+  West: 52
+  Bot: 52
+  type: 40

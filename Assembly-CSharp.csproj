@@ -60,6 +60,9 @@
      <Compile Include="Assets\Scripts\BlockItem.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Chunk.cs" />
+     <Compile Include="Assets\Scripts\EndlessTerrain.cs" />
+     <Compile Include="Assets\Scripts\Generation\Generation.cs" />
+     <Compile Include="Assets\Scripts\Generation\MapPreset.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IInventoryItem.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IStack.cs" />
      <Compile Include="Assets\Scripts\InventoryController.cs" />
@@ -67,11 +70,13 @@
      <Compile Include="Assets\Scripts\Item\ItemData.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\Noise.cs" />
-     <Compile Include="Assets\Scripts\PhysicsMovement.cs" />
      <Compile Include="Assets\Scripts\Pixelated Rendering\PixelatedImageEffect.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\SimplexNoise.cs" />
      <Compile Include="Assets\Scripts\TerrainModifier.cs" />
      <Compile Include="Assets\Scripts\UniqueIdentifierAttribute.cs" />
-     <Compile Include="Assets\Scripts\World.cs" />
+     <Compile Include="Assets\Scripts\WorldMap.cs" />
+     <None Include="Assets\Shaders\Toon.shader" />
      <None Include="Assets\Scripts\Pixelated Rendering\PixelatedImageEffect.shader" />
      <None Include="Assets\Shaders\Billboard.shader" />
  <Reference Include="Unity.Timeline.Editor">

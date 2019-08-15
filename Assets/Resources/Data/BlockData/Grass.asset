@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfaafd3ed9362b4ba079b2ed4783ca0, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  UID: 80331e9bda7cbf64d8124704547558a4
-  Top: 7
-  North: 8
-  South: 8
-  East: 8
-  West: 8
-  Bot: 9
-  type: 1
+  UID: 849bb9bfcdff2104a9c2f3b52e4f12c3
+  Top: 4
+  North: 4
+  South: 4
+  East: 4
+  West: 4
+  Bot: 4
+  type: 5

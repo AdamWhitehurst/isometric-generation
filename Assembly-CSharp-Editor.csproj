@@ -55,7 +55,7 @@
   <ItemGroup>
      <Compile Include="Assets\Editor\ScriptableObjectUtility.cs" />
      <Compile Include="Assets\Editor\UniqueIdentifierDrawer.cs" />
-     <Compile Include="Assets\Editor\WorldEditor.cs" />
+     <Compile Include="Assets\Editor\WorldMapEditor.cs" />
  <Reference Include="UnityEditor.TestRunner">
  <HintPath>C:/Users/Adam/Bloqs/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>

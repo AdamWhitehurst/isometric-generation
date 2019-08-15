@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfaafd3ed9362b4ba079b2ed4783ca0, type: 3}
   m_Name: Dirt
   m_EditorClassIdentifier: 
-  UID: 65ff88f140d4a0d43adca65b3919bb99
-  Top: 4
-  North: 4
-  South: 4
-  East: 4
-  West: 4
-  Bot: 4
-  type: 4
+  UID: 4324fca872571db429a16924761662df
+  Top: 12
+  North: 12
+  South: 12
+  East: 12
+  West: 12
+  Bot: 12
+  type: 10

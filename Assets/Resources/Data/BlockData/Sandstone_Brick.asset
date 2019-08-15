@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfaafd3ed9362b4ba079b2ed4783ca0, type: 3}
+  m_Name: Sandstone_Brick
+  m_EditorClassIdentifier: 
+  UID: 9574de13e21378f4d90c2f73035e7593
+  Top: 38
+  North: 38
+  South: 38
+  East: 38
+  West: 38
+  Bot: 38
+  type: 28

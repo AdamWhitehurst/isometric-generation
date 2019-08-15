@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfaafd3ed9362b4ba079b2ed4783ca0, type: 3}
   m_Name: Plank_Oak
   m_EditorClassIdentifier: 
-  UID: 2aeebbc73f61db4429b50a695f7f3e0c
-  Top: 10
-  North: 10
-  South: 10
-  East: 10
-  West: 10
-  Bot: 10
-  type: 8
+  UID: ca1867cc352418c4d8ddf667cff93c22
+  Top: 5
+  North: 5
+  South: 5
+  East: 5
+  West: 5
+  Bot: 5
+  type: 6

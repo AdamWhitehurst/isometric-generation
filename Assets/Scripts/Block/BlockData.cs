@@ -4,12 +4,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Block
-{
+namespace Block {
     [Serializable]
     [CreateAssetMenu(fileName = "New BlockData", menuName = "BlockData", order = 0)]
-    public class BlockData : ScriptableObject
-    {
+    public class BlockData : ScriptableObject {
         [UniqueIdentifier]
         public string UID;
         public ushort Top;
@@ -21,8 +19,8 @@ namespace Block
 
         public BlockType type;
 
-        public BlockData(BlockType type, ushort face)
-        {
+        public BlockData(BlockType type, ushort face) {
+
             this.type = type;
             Top = face;
             North = face;
@@ -32,8 +30,8 @@ namespace Block
             Bot = face;
         }
 
-        public BlockData(BlockType type, ushort topFace, ushort botFace, ushort sideFace)
-        {
+        public BlockData(BlockType type, ushort topFace, ushort botFace, ushort sideFace) {
+
             this.type = type;
             Top = topFace;
             North = sideFace;
@@ -43,8 +41,8 @@ namespace Block
             Bot = botFace;
         }
 
-        public BlockData(BlockType type, ushort topFace, ushort northFace, ushort southFace, ushort eastFace, ushort westFace, ushort botFace)
-        {
+        public BlockData(BlockType type, ushort topFace, ushort northFace, ushort southFace, ushort eastFace, ushort westFace, ushort botFace) {
+
             this.type = type;
             Top = topFace;
             North = northFace;
@@ -54,12 +52,9 @@ namespace Block
             Bot = botFace;
         }
 
-        public ushort this[Face face]
-        {
-            get
-            {
-                switch (face)
-                {
+        public ushort this[Face face] {
+            get {
+                switch (face) {
                     case (Face.Top):
                         return this.Top;
                     case (Face.North):

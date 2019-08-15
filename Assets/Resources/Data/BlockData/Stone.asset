@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfaafd3ed9362b4ba079b2ed4783ca0, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  UID: 40413e9dfe647a640a7bf1bdfbdad1fe
-  Top: 3
-  North: 3
-  South: 3
-  East: 3
-  West: 3
-  Bot: 3
-  type: 3
+  UID: e87ec5ff574e8264b8de2ac66c108850
+  Top: 1
+  North: 1
+  South: 1
+  East: 1
+  West: 1
+  Bot: 1
+  type: 2

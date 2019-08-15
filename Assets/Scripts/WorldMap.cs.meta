@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 642e5e18ac34f854ebea365c46ca932a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - preset: {instanceID: 0}
+  - world: {instanceID: 0}
+  - biomeMap: {fileID: 2800000, guid: 08c107e417d620f42bfc40f2e11812e8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

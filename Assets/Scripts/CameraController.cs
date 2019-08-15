@@ -7,8 +7,7 @@ using UnityEngine;
 
 /// </summary>
 [ExecuteInEditMode]
-public class CameraController : MonoBehaviour
-{
+public class CameraController : MonoBehaviour {
     public Transform currentTarget;
     public Vector3 offset;
     public float moveSpeed = 5;
@@ -20,19 +19,16 @@ public class CameraController : MonoBehaviour
     Vector3 targetPos;
     bool smoothRotating = false;
 
-    void Update()
-    {
+    void Update() {
         MoveWithTarget();
         LookAtTarget();
 
-        if (Input.GetKeyDown(KeyCode.Q) && !smoothRotating)
-        {
+        if (Input.GetKeyDown(KeyCode.Q) && !smoothRotating) {
             StartCoroutine("RotateAroundTarget", 90);
 
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && !smoothRotating)
-        {
+        if (Input.GetKeyDown(KeyCode.E) && !smoothRotating) {
             StartCoroutine("RotateAroundTarget", -90);
         }
 
@@ -40,23 +36,18 @@ public class CameraController : MonoBehaviour
     /// <summary>
     /// Move camera with target, maintaining offset
     /// </summary>
-    void MoveWithTarget()
-    {
+    void MoveWithTarget() {
         targetPos = currentTarget.position + offset;
-        if (!smoothRotating)
-        {
+        if (!smoothRotating) {
             transform.position = targetPos;
-        }
-        else
-        {
+        } else {
             transform.position = Vector3.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
         }
     }
     /// <summary>
     /// Use look vector (target - current) to aim camera at target
     /// </summary>
-    void LookAtTarget()
-    {
+    void LookAtTarget() {
         targetRotation = Quaternion.LookRotation(currentTarget.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
@@ -65,15 +56,13 @@ public class CameraController : MonoBehaviour
     /// </summary>
     /// <param name="angle"></param>
     /// <returns></returns>
-    IEnumerator RotateAroundTarget(float angle)
-    {
+    IEnumerator RotateAroundTarget(float angle) {
         Vector3 vel = Vector3.zero;
         Vector3 targetOffsetPos = Quaternion.Euler(0, angle, 0) * offset;
         smoothRotating = true;
         float dist = Vector3.Distance(offset, targetOffsetPos);
 
-        while (dist > 0.03f)
-        {
+        while (dist > 0.03f) {
             offset = Vector3.SmoothDamp(offset, targetOffsetPos, ref vel, smoothSpeed);
             dist = Vector3.Distance(offset, targetOffsetPos);
             yield return null;

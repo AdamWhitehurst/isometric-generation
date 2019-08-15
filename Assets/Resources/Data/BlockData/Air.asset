@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Air
   m_EditorClassIdentifier: 
   UID: 869accc4b16d5c04ab94f49af34724a8
-  Top: 0
-  North: 0
-  South: 0
-  East: 0
-  West: 0
-  Bot: 0
+  Top: 54
+  North: 54
+  South: 54
+  East: 54
+  West: 54
+  Bot: 54
   type: 0
+  color: {r: 0.19215688, g: 0.3019608, b: 0.47450984, a: 0}
