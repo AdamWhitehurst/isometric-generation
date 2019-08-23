@@ -7,9 +7,9 @@ using FauxGravity;
 namespace State {
     [Serializable]
     public class JumpingState : BaseState {
-        private ControlledBody controller;
+        private KinematicBody controller;
 
-        public JumpingState(ControlledBody controller) : base(controller.gameObject) {
+        public JumpingState(KinematicBody controller) : base(controller.gameObject) {
             this.controller = controller;
         }
 

@@ -7,12 +7,19 @@ using FauxGravity;
 namespace State {
     [Serializable]
     public class MovingState : BaseState {
-        private ControlledBody controller;
-        public MovingState(ControlledBody controller) : base(controller.gameObject) {
+        private KinematicBody controller;
+        public MovingState(KinematicBody controller) : base(controller.gameObject) {
             this.controller = controller;
         }
 
         public override Type Tick() {
+
+            bool actionInput = controller.CaptureActionInput();
+
+            if (actionInput) {
+                return typeof(ActionState);
+            }
+
             Vector2 horizontalInputs = controller.CaptureHorizontalInput();
             float jumpInput = controller.CaptureJumpInput();
 

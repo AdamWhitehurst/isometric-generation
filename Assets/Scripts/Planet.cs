@@ -52,10 +52,10 @@ public class Planet : MonoBehaviour, IModifiable, IAttractor {
         Vector3 gravityUp = distance.normalized;
         Vector3 targetUp = body.transform.up;
 
-        Vector3 originFL = body.transform.position + (body.transform.up * rayVerticalOffset) + (body.transform.forward * raySpacing) + (-body.transform.right * raySpacing);
-        Vector3 originFR = body.transform.position + (body.transform.up * rayVerticalOffset) + (body.transform.forward * raySpacing) + (body.transform.right * raySpacing);
-        Vector3 originRL = body.transform.position + (body.transform.up * rayVerticalOffset) + (-body.transform.forward * raySpacing) + (-body.transform.right * raySpacing);
-        Vector3 originRR = body.transform.position + (body.transform.up * rayVerticalOffset) + (-body.transform.forward * raySpacing) + (body.transform.right * raySpacing);
+        Vector3 originFL = body.col.bounds.center + (body.transform.forward * raySpacing) + (-body.transform.right * raySpacing);
+        Vector3 originFR = body.col.bounds.center + (body.transform.forward * raySpacing) + (body.transform.right * raySpacing);
+        Vector3 originRL = body.col.bounds.center + (-body.transform.forward * raySpacing) + (-body.transform.right * raySpacing);
+        Vector3 originRR = body.col.bounds.center + (-body.transform.forward * raySpacing) + (body.transform.right * raySpacing);
 
         RaycastHit fl;
         RaycastHit fr;
@@ -71,10 +71,10 @@ public class Planet : MonoBehaviour, IModifiable, IAttractor {
 
         if (fl.normal == rr.normal
         && fr.normal == rl.normal) {
-            // Debug.DrawRay(originFL, fl.normal, Color.yellow, 0.01f);
-            // Debug.DrawRay(originFR, fr.normal, Color.yellow, 0.01f);
-            // Debug.DrawRay(originRL, rl.normal, Color.yellow, 0.01f);
-            // Debug.DrawRay(originRR, rr.normal, Color.yellow, 0.01f);
+            Debug.DrawRay(originFL, fl.normal, Color.yellow, 0.01f);
+            Debug.DrawRay(originFR, fr.normal, Color.yellow, 0.01f);
+            Debug.DrawRay(originRL, rl.normal, Color.yellow, 0.01f);
+            Debug.DrawRay(originRR, rr.normal, Color.yellow, 0.01f);
 
             targetUp = fr.normal;
         }

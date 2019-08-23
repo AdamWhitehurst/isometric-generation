@@ -13,29 +13,39 @@ namespace FauxGravity {
         public Animator anim { get; private set; }
         public StateMachine stateMachine { get; private set; }
 
+        public int inputDelayMS = 100;
+
         private float turn;
 
         private Planet planet;
+
+        private float curInputDelay = 0f;
 
         private void Awake() {
             InitializeStateMachine();
         }
 
         private void InitializeStateMachine() {
-            var states = new Dictionary<Type, BaseState>() {
-                {typeof(FallingState), new FallingState(this)},
-                {typeof(IdleState), new IdleState(this)},
-                {typeof(MovingState), new MovingState(this)},
-                {typeof(JumpingState), new JumpingState(this)},
-            };
-            stateMachine = GetComponent<StateMachine>();
-            stateMachine.SetStates(states);
+            // var states = new Dictionary<Type, BaseState>() {
+            //     // {typeof(FallingState), new FallingState(this)},
+            //     // {typeof(IdleState), new IdleState(this)},
+            //     // {typeof(MovingState), new MovingState(this)},
+            //     // {typeof(JumpingState), new JumpingState(this)},
+            //     // {typeof(ActionState), new ActionState(this)},
+            // };
+            // stateMachine = GetComponent<StateMachine>();
+            // stateMachine.SetStates(states);
         }
         void Start() {
             rb = GetComponent<Rigidbody>();
             anim = GetComponent<Animator>();
             col = GetComponent<CapsuleCollider>();
         }
+
+        void Update() {
+            curInputDelay += Time.deltaTime * 1000;
+        }
+
         /// <summary>
         /// Returns horizontal input based on keys pressed:
         /// Horizontal: A and D, or arrow-left and arrow-right
@@ -53,6 +63,28 @@ namespace FauxGravity {
         /// </summary>
         public float CaptureJumpInput() {
             return Input.GetAxis("Jump");
+        }
+
+        /// <summary>
+        /// Returns whether actionInput has been pressed
+        /// </summary>
+        public bool CaptureActionInput() {
+            if (curInputDelay >= inputDelayMS && Input.GetKeyDown(KeyCode.C)) {
+                curInputDelay = 0;
+                return true;
+            }
+            return false;
+        }
+
+        public void HandleAction() {
+            RaycastHit hit;
+            if (Physics.Raycast(col.bounds.center, transform.forward, out hit, 1f, LayerMask.GetMask("World"))) {
+                var modifiable = hit.transform.parent.GetComponent<IModifiable>();
+                Debug.DrawRay(col.bounds.center, transform.forward, Color.cyan, 0.01f);
+                if (modifiable != null) {
+                    TerrainModifier.ReplaceBlockAt(modifiable.planet, hit, Block.BlockType.Air);
+                }
+            }
         }
 
         protected override void FixedUpdate() {

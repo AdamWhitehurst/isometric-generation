@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\FauxGravity\ControlledBody.cs" />
      <Compile Include="Assets\Scripts\FauxGravity\Extensions.cs" />
      <Compile Include="Assets\Scripts\FauxGravity\IAttractor.cs" />
+     <Compile Include="Assets\Scripts\FauxGravity\KinematicBody.cs" />
      <Compile Include="Assets\Scripts\FauxGravity\Rotator.cs" />
      <Compile Include="Assets\Scripts\Generation\Generation.cs" />
      <Compile Include="Assets\Scripts\Generation\PlanetCruible.cs" />
@@ -79,6 +80,7 @@
      <Compile Include="Assets\Scripts\Pixelated Rendering\PixelatedImageEffect.cs" />
      <Compile Include="Assets\Scripts\Planet.cs" />
      <Compile Include="Assets\Scripts\Settings.cs" />
+     <Compile Include="Assets\Scripts\State\ActionState.cs" />
      <Compile Include="Assets\Scripts\State\BaseState.cs" />
      <Compile Include="Assets\Scripts\State\FallingState.cs" />
      <Compile Include="Assets\Scripts\State\IdleState.cs" />

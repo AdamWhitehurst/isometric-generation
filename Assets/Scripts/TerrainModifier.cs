@@ -93,11 +93,14 @@ public static class TerrainModifier {
     public static void ReplaceBlockAt(Planet planet, RaycastHit hit, BlockType block) {
         // Get position of hit
         Vector3 position = hit.point + (hit.normal * -0.5f);
+        var localPos = planet.transform.InverseTransformPoint(position);
+        var localBlockPos = localPos + planet.planetBounds.extents;
         // Move position to center of hit block
-        BlockType oldTile = planet.data[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y), Mathf.RoundToInt(position.z)];
+        Debug.Log(localBlockPos);
+        BlockType oldTile = planet.BlockAt(Mathf.RoundToInt(localBlockPos.x), Mathf.RoundToInt(localBlockPos.y), Mathf.RoundToInt(localBlockPos.z));
         // Set that hit block to new block
-        SetBlockAt(planet, position, block);
-        SpawnBlockAt(planet, position, oldTile);
+        SetBlockAt(planet, localBlockPos, block);
+        SpawnBlockAt(planet, localBlockPos, oldTile);
     }
 
 

@@ -13,8 +13,9 @@ namespace FauxGravity {
 
         public float groundedRaycastVerticalOffset = 0.1f;
         public float maxCastDistance = 0.1f;
+        public float horizontalRayDistanceModifier = 0.8f;
 
-        public float raySpacing = 0.05f;
+        public float sphereCastRadius = 0.05f;
         public Rigidbody rb { get; protected set; }
         public Collider col { get; protected set; }
         void Start() {
@@ -58,14 +59,14 @@ namespace FauxGravity {
 
             // Debug.DrawRay(transform.position, -transform.up, Color.green, 0.01f);
         }
-        public bool IsGrounded() {
+        public virtual bool IsGrounded() {
             if (attractor == null) return false;
 
             // Vector3 originC = transform.position + (transform.up * groundedRaycastVerticalOffset);
-            Vector3 originFL = transform.position + (transform.up * groundedRaycastVerticalOffset) + (transform.forward * raySpacing) + (-transform.right * raySpacing);
-            Vector3 originFR = transform.position + (transform.up * groundedRaycastVerticalOffset) + (transform.forward * raySpacing) + (transform.right * raySpacing);
-            Vector3 originRL = transform.position + (transform.up * groundedRaycastVerticalOffset) + (-transform.forward * raySpacing) + (-transform.right * raySpacing);
-            Vector3 originRR = transform.position + (transform.up * groundedRaycastVerticalOffset) + (-transform.forward * raySpacing) + (transform.right * raySpacing);
+            Vector3 originFL = transform.position + (transform.up * groundedRaycastVerticalOffset) + (transform.forward * sphereCastRadius) + (-transform.right * sphereCastRadius);
+            Vector3 originFR = transform.position + (transform.up * groundedRaycastVerticalOffset) + (transform.forward * sphereCastRadius) + (transform.right * sphereCastRadius);
+            Vector3 originRL = transform.position + (transform.up * groundedRaycastVerticalOffset) + (-transform.forward * sphereCastRadius) + (-transform.right * sphereCastRadius);
+            Vector3 originRR = transform.position + (transform.up * groundedRaycastVerticalOffset) + (-transform.forward * sphereCastRadius) + (transform.right * sphereCastRadius);
 
             // RaycastHit c;
             RaycastHit fl;
