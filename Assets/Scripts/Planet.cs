@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Generation;
 using Block;
-public class Planet : MonoBehaviour, IModifiable {
+using FauxGravity;
+
+public class Planet : MonoBehaviour, IModifiable, IAttractor {
     #region Fields 
     public BlockType[,,] data { get; private set; }
     public Bounds planetBounds { get; private set; }
     public Chunk[,,] chunks { get; private set; }
+
+    public float gravity = -9.81f;
+    public float raySpacing = 0.05f;
+    public float rayVerticalOffset = 0.1f;
 
     /// <summary>
     /// Property controlling whether map is visible and active
@@ -27,7 +33,6 @@ public class Planet : MonoBehaviour, IModifiable {
     #endregion
 
     #region Backing Variables 
-
     /// <summary>
     /// DO NOT USE. 
     /// <para> Backing store for IsVisible property. 
@@ -41,12 +46,53 @@ public class Planet : MonoBehaviour, IModifiable {
     public Planet planet => this;
     #endregion
 
+    #region IAttractor 
+    public Vector3 Attract(Body body) {
+        Vector3 distance = body.transform.position - transform.position;
+        Vector3 gravityUp = distance.normalized;
+        Vector3 targetUp = body.transform.up;
+
+        Vector3 originFL = body.transform.position + (body.transform.up * rayVerticalOffset) + (body.transform.forward * raySpacing) + (-body.transform.right * raySpacing);
+        Vector3 originFR = body.transform.position + (body.transform.up * rayVerticalOffset) + (body.transform.forward * raySpacing) + (body.transform.right * raySpacing);
+        Vector3 originRL = body.transform.position + (body.transform.up * rayVerticalOffset) + (-body.transform.forward * raySpacing) + (-body.transform.right * raySpacing);
+        Vector3 originRR = body.transform.position + (body.transform.up * rayVerticalOffset) + (-body.transform.forward * raySpacing) + (body.transform.right * raySpacing);
+
+        RaycastHit fl;
+        RaycastHit fr;
+        RaycastHit rl;
+        RaycastHit rr;
+
+        Physics.Linecast(originFL, transform.position, out fl, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
+        Physics.Linecast(originFR, transform.position, out fr, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
+        Physics.Linecast(originRL, transform.position, out rl, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
+        Physics.Linecast(originRR, transform.position, out rr, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
+
+        // Debug.Log($"{fl.normal}, {fr.normal},{c.normal}, {rl.normal}, {rr.normal}");
+
+        if (fl.normal == rr.normal
+        && fr.normal == rl.normal) {
+            // Debug.DrawRay(originFL, fl.normal, Color.yellow, 0.01f);
+            // Debug.DrawRay(originFR, fr.normal, Color.yellow, 0.01f);
+            // Debug.DrawRay(originRL, rl.normal, Color.yellow, 0.01f);
+            // Debug.DrawRay(originRR, rr.normal, Color.yellow, 0.01f);
+
+            targetUp = fr.normal;
+        }
+
+        body.AddGravityForce(gravityUp * gravity);
+        return targetUp;
+    }
+
+    public SphereCollider attractorRange { get; private set; }
+
+    #endregion
 
     #region MonoBehaviour Methods
     private void Start() {
         if (data == null) {
             SetBlockData(PlanetCrucible.GeneratePlanetData(Settings.DefaultPlanetPreset));
         }
+        InitializeAttractorRange();
     }
 
     #endregion
@@ -92,6 +138,14 @@ public class Planet : MonoBehaviour, IModifiable {
                 }
             }
         }
+    }
+
+    private void InitializeAttractorRange() {
+        attractorRange = new GameObject().AddComponent<SphereCollider>();
+        attractorRange.name = "Attractor";
+        attractorRange.transform.SetParent(this.transform, false);
+        attractorRange.radius = data.GetLength(0);
+        attractorRange.isTrigger = true;
     }
     /// <summary>
     /// Initializes the 3D array of Chunks, with size necessary for 
@@ -221,7 +275,7 @@ public class Planet : MonoBehaviour, IModifiable {
     /// </summary>
     /// <param name="position">Position vector of other object</param>
     /// <returns>Distance vector between passed position and planet center</returns>
-    public float CalculateDistanceFromCenter(Vector3 position) {
+    public float DistanceFromCenter(Vector3 position) {
         return Vector3.Distance(planetBounds.center, position);
     }
 }

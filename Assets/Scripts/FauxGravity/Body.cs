@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace FauxGravity {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
     public class Body : MonoBehaviour {
 
-        [SerializeField] protected Attractor attractor;
+        [SerializeField] protected IAttractor attractor;
         public Vector3 targetUp;
         public LayerMask terrainMask;
 
@@ -25,8 +26,11 @@ namespace FauxGravity {
         }
 
         public virtual void OnTriggerEnter(Collider other) {
-            if (other.tag == "Attractor Range") {
-                attractor = other.GetComponent<Attractor>();
+            if (attractor == null) {
+                IAttractor att = other.transform.parent.GetComponent<IAttractor>();
+                if (att != null) {
+                    attractor = att;
+                }
             }
         }
 
@@ -37,7 +41,7 @@ namespace FauxGravity {
         }
 
         protected virtual void FixedUpdate() {
-            if (attractor) {
+            if (attractor != null) {
 
                 var newTargetUp = attractor.Attract(this);
                 if (newTargetUp != transform.up) {

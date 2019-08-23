@@ -59,10 +59,10 @@
      <Compile Include="Assets\Scripts\BlockItem.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Chunk.cs" />
-     <Compile Include="Assets\Scripts\FauxGravity\Attractor.cs" />
      <Compile Include="Assets\Scripts\FauxGravity\Body.cs" />
      <Compile Include="Assets\Scripts\FauxGravity\ControlledBody.cs" />
      <Compile Include="Assets\Scripts\FauxGravity\Extensions.cs" />
+     <Compile Include="Assets\Scripts\FauxGravity\IAttractor.cs" />
      <Compile Include="Assets\Scripts\FauxGravity\Rotator.cs" />
      <Compile Include="Assets\Scripts\Generation\Generation.cs" />
      <Compile Include="Assets\Scripts\Generation\PlanetCruible.cs" />
