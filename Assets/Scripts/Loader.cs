@@ -116,7 +116,8 @@ public static class Loader {
             uvs = tileSpriteAtlas[blockDataDict[0][face]].uv;
         }
 
-        Vector2[] sortedUVs = new Vector2[] { uvs[2], uvs[0], uvs[1], uvs[3] };
+        // Vector2[] sortedUVs = new Vector2[] { uvs[1], uvs[2], uvs[0], uvs[3] };
+        Vector2[] sortedUVs = new Vector2[] { uvs[3], uvs[0], uvs[2], uvs[1] };
         return sortedUVs;
     }
 }

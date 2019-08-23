@@ -15,10 +15,12 @@ public class Chunk : MonoBehaviour {
     public int mapY;
     public int mapZ;
     public bool needsUpdate;
-    private WorldMap world;
+    private Planet world;
     private List<Vector3> newVertices = new List<Vector3>();
     private List<int> newTriangles = new List<int>();
     private List<Vector2> newUV = new List<Vector2>();
+
+    private List<Vector3> newNormals = new List<Vector3>();
 
     private MeshFilter filter;
     private MeshRenderer rndrr;
@@ -30,6 +32,8 @@ public class Chunk : MonoBehaviour {
         filter = GetComponent<MeshFilter>();
         rndrr = GetComponent<MeshRenderer>();
         col = GetComponent<MeshCollider>();
+
+        ClearMeshes();
     }
 
 
@@ -104,10 +108,15 @@ public class Chunk : MonoBehaviour {
     }
 
     void CubeTop(int x, int y, int z, BlockType tile) {
-        newVertices.Add(new Vector3(x, y, z + 1));
-        newVertices.Add(new Vector3(x + 1, y, z + 1));
-        newVertices.Add(new Vector3(x + 1, y, z));
-        newVertices.Add(new Vector3(x, y, z));
+        newVertices.Add(new Vector3(x + 0, y + 0, z + 0));
+        newVertices.Add(new Vector3(x + 0, y + 0, z + 1));
+        newVertices.Add(new Vector3(x + 1, y + 0, z + 1));
+        newVertices.Add(new Vector3(x + 1, y + 0, z + 0));
+
+        newNormals.Add(new Vector3(0, 1, 0));
+        newNormals.Add(new Vector3(0, 1, 0));
+        newNormals.Add(new Vector3(0, 1, 0));
+        newNormals.Add(new Vector3(0, 1, 0));
 
         ApplyTexture(tile, global::Block.Face.Top);
 
@@ -115,56 +124,82 @@ public class Chunk : MonoBehaviour {
 
     void CubeNorth(int x, int y, int z, BlockType tile) {
         newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
-        newVertices.Add(new Vector3(x + 1, y, z + 1));
-        newVertices.Add(new Vector3(x, y, z + 1));
-        newVertices.Add(new Vector3(x, y - 1, z + 1));
+        newVertices.Add(new Vector3(x + 1, y + 0, z + 1));
+        newVertices.Add(new Vector3(x + 0, y + 0, z + 1));
+        newVertices.Add(new Vector3(x + 0, y - 1, z + 1));
+
+        newNormals.Add(new Vector3(0, 0, 1));
+        newNormals.Add(new Vector3(0, 0, 1));
+        newNormals.Add(new Vector3(0, 0, 1));
+        newNormals.Add(new Vector3(0, 0, 1));
 
         ApplyTexture(tile, global::Block.Face.North);
     }
 
     void CubeEast(int x, int y, int z, BlockType tile) {
-        newVertices.Add(new Vector3(x + 1, y - 1, z));
-        newVertices.Add(new Vector3(x + 1, y, z));
-        newVertices.Add(new Vector3(x + 1, y, z + 1));
+        newVertices.Add(new Vector3(x + 1, y - 1, z + 0));
+        newVertices.Add(new Vector3(x + 1, y + 0, z + 0));
+        newVertices.Add(new Vector3(x + 1, y + 0, z + 1));
         newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
+
+        newNormals.Add(new Vector3(1, 0, 0));
+        newNormals.Add(new Vector3(1, 0, 0));
+        newNormals.Add(new Vector3(1, 0, 0));
+        newNormals.Add(new Vector3(1, 0, 0));
 
         ApplyTexture(tile, global::Block.Face.South);
     }
 
     void CubeSouth(int x, int y, int z, BlockType tile) {
-        newVertices.Add(new Vector3(x, y - 1, z));
-        newVertices.Add(new Vector3(x, y, z));
-        newVertices.Add(new Vector3(x + 1, y, z));
-        newVertices.Add(new Vector3(x + 1, y - 1, z));
+        newVertices.Add(new Vector3(x + 0, y - 1, z + 0));
+        newVertices.Add(new Vector3(x + 0, y + 0, z + 0));
+        newVertices.Add(new Vector3(x + 1, y + 0, z + 0));
+        newVertices.Add(new Vector3(x + 1, y - 1, z + 0));
+
+        newNormals.Add(new Vector3(0, 0, -1));
+        newNormals.Add(new Vector3(0, 0, -1));
+        newNormals.Add(new Vector3(0, 0, -1));
+        newNormals.Add(new Vector3(0, 0, -1));
 
         ApplyTexture(tile, global::Block.Face.East);
     }
 
     void CubeWest(int x, int y, int z, BlockType tile) {
-        newVertices.Add(new Vector3(x, y - 1, z + 1));
-        newVertices.Add(new Vector3(x, y, z + 1));
-        newVertices.Add(new Vector3(x, y, z));
-        newVertices.Add(new Vector3(x, y - 1, z));
+        newVertices.Add(new Vector3(x + 0, y - 1, z + 1));
+        newVertices.Add(new Vector3(x + 0, y + 0, z + 1));
+        newVertices.Add(new Vector3(x + 0, y + 0, z + 0));
+        newVertices.Add(new Vector3(x + 0, y - 1, z + 0));
+
+        newNormals.Add(new Vector3(-1, 0, 0));
+        newNormals.Add(new Vector3(-1, 0, 0));
+        newNormals.Add(new Vector3(-1, 0, 0));
+        newNormals.Add(new Vector3(-1, 0, 0));
 
         ApplyTexture(tile, global::Block.Face.West);
     }
 
     void CubeBot(int x, int y, int z, BlockType tile) {
-        newVertices.Add(new Vector3(x, y - 1, z));
-        newVertices.Add(new Vector3(x + 1, y - 1, z));
+        newVertices.Add(new Vector3(x + 1, y - 1, z + 0));
         newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
-        newVertices.Add(new Vector3(x, y - 1, z + 1));
+        newVertices.Add(new Vector3(x + 0, y - 1, z + 1));
+        newVertices.Add(new Vector3(x + 0, y - 1, z + 0));
+
+        newNormals.Add(new Vector3(0, -1, 0));
+        newNormals.Add(new Vector3(0, -1, 0));
+        newNormals.Add(new Vector3(0, -1, 0));
+        newNormals.Add(new Vector3(0, -1, 0));
 
         ApplyTexture(tile, global::Block.Face.Bot);
     }
 
     void ApplyTexture(BlockType tile, Block.Face face) {
-        newTriangles.Add(faceCount * 4 + 0); //1
-        newTriangles.Add(faceCount * 4 + 2); //3
-        newTriangles.Add(faceCount * 4 + 3); //4
-        newTriangles.Add(faceCount * 4 + 0); //1
-        newTriangles.Add(faceCount * 4 + 1); //2
-        newTriangles.Add(faceCount * 4 + 2); //3
+        newTriangles.Add(faceCount * 4 + 0);
+        newTriangles.Add(faceCount * 4 + 2);
+        newTriangles.Add(faceCount * 4 + 3);
+
+        newTriangles.Add(faceCount * 4 + 0);
+        newTriangles.Add(faceCount * 4 + 1);
+        newTriangles.Add(faceCount * 4 + 2);
         newUV.AddRange(Loader.TileUVs(tile, face));
 
         faceCount++;
@@ -174,6 +209,7 @@ public class Chunk : MonoBehaviour {
         newVertices.Clear();
         newUV.Clear();
         newTriangles.Clear();
+        newNormals.Clear();
 
         faceCount = 0;
     }
@@ -184,13 +220,17 @@ public class Chunk : MonoBehaviour {
     }
 
     void ApplyMesh() {
+        ClearMeshes();
         Mesh mesh = new Mesh();
-        mesh.vertices = newVertices.ToArray();
-        mesh.uv = newUV.ToArray();
-        mesh.triangles = newTriangles.ToArray();
         mesh.Optimize();
-        mesh.RecalculateNormals();
         mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+
+        mesh.subMeshCount = 1;
+        mesh.SetVertices(newVertices.ToArray());
+        mesh.SetTriangles(newTriangles.ToArray(), 0);
+        mesh.SetUVs(0, newUV.ToArray());
+        mesh.SetNormals(newNormals.ToArray());
 
         filter.sharedMesh = mesh;
         col.sharedMesh = mesh;
@@ -198,7 +238,7 @@ public class Chunk : MonoBehaviour {
     }
 
     BlockType Block(int x, int y, int z) {
-        if (world == null) world = parentMap.GetComponent<WorldMap>();
-        return world.Block(x + mapX, y + mapY, z + mapZ);
+        if (world == null) world = parentMap.GetComponent<Planet>();
+        return world.BlockAt(x + mapX, y + mapY, z + mapZ);
     }
 }

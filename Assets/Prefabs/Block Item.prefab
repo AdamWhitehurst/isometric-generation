@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6891281540484921900}
   - component: {fileID: 5567058363538540126}
   - component: {fileID: 5068238769390944669}
-  - component: {fileID: -5421990860300948847}
+  - component: {fileID: -8916138832269378786}
   m_Layer: 11
   m_Name: Block Item
   m_TagString: Item
@@ -124,7 +124,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-5421990860300948847
+--- !u!114 &-8916138832269378786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,6 +133,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5891726206815394773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dbaa647018b9d04b9c92314c7c9538e, type: 3}
+  m_Script: {fileID: 11500000, guid: ca87311c9c37ace459d57f8edabacaa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attractor: {fileID: 0}
+  targetUp: {x: 0, y: 0, z: 0}

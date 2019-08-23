@@ -37,11 +37,11 @@ public class CameraController : MonoBehaviour {
     /// Move camera with target, maintaining offset
     /// </summary>
     void MoveWithTarget() {
-        targetPos = currentTarget.position + offset;
+        targetPos = currentTarget.localPosition + offset;
         if (!smoothRotating) {
-            transform.position = targetPos;
+            transform.position = transform.TransformDirection(targetPos);
         } else {
-            transform.position = Vector3.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            transform.position = transform.TransformDirection(Vector3.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime));
         }
     }
     /// <summary>
@@ -49,7 +49,7 @@ public class CameraController : MonoBehaviour {
     /// </summary>
     void LookAtTarget() {
         targetRotation = Quaternion.LookRotation(currentTarget.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+        transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
     /// <summary>
     /// 

@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - PlanetOrientation
+  - Attractor Range
+  - Planet
+  - Orientator
   layers:
   - Default
   - TransparentFX
@@ -19,7 +23,7 @@ TagManager:
   - World
   - Items
   - Attractor
-  - 
+  - Orientator
   - 
   - 
   - 
