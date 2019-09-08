@@ -7,10 +7,10 @@ using FauxGravity;
 namespace State {
     [Serializable]
     public class JumpingState : BaseState {
-        private KinematicBody controller;
+        private Character character;
 
-        public JumpingState(KinematicBody controller) : base(controller.gameObject) {
-            this.controller = controller;
+        public JumpingState(Character character) : base(character.gameObject) {
+            this.character = character;
         }
 
         public override Type Tick() {
@@ -18,9 +18,9 @@ namespace State {
         }
 
         public override void OnEnter() {
-            controller.anim.SetFloat("MoveSpeed", 1f);
-            controller.anim.SetBool("Grounded", false);
-            controller.anim.SetTrigger("Jump");
+            character.animator.SetFloat("MoveSpeed", 1f);
+            character.animator.SetBool("Grounded", false);
+            character.animator.SetTrigger("Jump");
         }
     }
 }

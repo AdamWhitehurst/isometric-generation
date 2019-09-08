@@ -9,6 +9,7 @@ TagManager:
   - Attractor Range
   - Planet
   - Orientator
+  - Inventory UI
   layers:
   - Default
   - TransparentFX

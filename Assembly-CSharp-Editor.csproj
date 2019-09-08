@@ -53,9 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\ScriptableObjectUtility.cs" />
-     <Compile Include="Assets\Editor\UniqueIdentifierDrawer.cs" />
-     <Compile Include="Assets\Editor\WorldMapEditor.cs" />
+     <Compile Include="Assets\Editor\ChunkEditor.cs" />
+     <Compile Include="Assets\Editor\PlanetEditor.cs" />
+     <Compile Include="Assets\Scripts\Variables\Editor\FloatReferenceDrawer.cs" />
+     <Compile Include="Assets\SimpleKeplerOrbits\Scripts\Editor\EllipticInterceptionSolverEditor.cs" />
+     <Compile Include="Assets\SimpleKeplerOrbits\Scripts\Editor\KeplerOrbitMoverEditor.cs" />
  <Reference Include="UnityEditor.TestRunner">
  <HintPath>C:/Users/Adam/Bloqs/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>

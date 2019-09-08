@@ -7,10 +7,10 @@ using FauxGravity;
 namespace State {
     [Serializable]
     public class ActionState : BaseState {
-        private KinematicBody controller;
+        private Character character;
 
-        public ActionState(KinematicBody controller) : base(controller.gameObject) {
-            this.controller = controller;
+        public ActionState(Character character) : base(character.gameObject) {
+            this.character = character;
         }
 
         public override Type Tick() {
@@ -19,8 +19,8 @@ namespace State {
         }
 
         public override void OnEnter() {
-            controller.anim.SetTrigger("Wave");
-            controller.HandleAction();
+            // character.anim.SetTrigger("Wave");
+            character.HandleAction();
         }
     }
 }

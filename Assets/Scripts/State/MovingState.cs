@@ -7,38 +7,38 @@ using FauxGravity;
 namespace State {
     [Serializable]
     public class MovingState : BaseState {
-        private KinematicBody controller;
-        public MovingState(KinematicBody controller) : base(controller.gameObject) {
-            this.controller = controller;
+        private Character character;
+        public MovingState(Character character) : base(character.gameObject) {
+            this.character = character;
         }
 
         public override Type Tick() {
 
-            bool actionInput = controller.CaptureActionInput();
+            bool actionInput = character.CaptureActionInput();
 
             if (actionInput) {
                 return typeof(ActionState);
             }
 
-            Vector2 horizontalInputs = controller.CaptureHorizontalInput();
-            float jumpInput = controller.CaptureJumpInput();
+            Vector2 horizontalInputs = character.CurrentHorizontalInputs();
+            float jumpInput = character.CurrentJumpInput;
 
-            controller.anim.SetFloat("MoveSpeed", horizontalInputs.y);
+            character.animator.SetFloat("MoveSpeed", horizontalInputs.y);
 
-            bool moving = controller.HandleMoveForward();
-
-            if (jumpInput != 0 && controller.IsGrounded()) {
-                controller.Jump();
+            var moving = character.HandleMoveForward();
+            var grounded = character.IsGrounded;
+            if (jumpInput != 0 && grounded) {
+                character.Jump();
                 return typeof(FallingState);
             }
-            if (moving && !controller.IsGrounded()) return typeof(FallingState);
+            if (moving && !grounded) return typeof(FallingState);
             if (moving) return null;
             return typeof(IdleState);
 
         }
 
         public override void OnEnter() {
-            controller.anim.SetBool("Grounded", true);
+            character.animator.SetBool("Grounded", true);
         }
     }
 }

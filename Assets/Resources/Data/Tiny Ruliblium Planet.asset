@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c491349193f849441a6023a93a0b3a13, type: 3}
+  m_Name: Tiny Ruliblium Planet
+  m_EditorClassIdentifier: 
+  presetName: Basic
+  planetSeed: 13370
+  planetMaterial: {fileID: 2100000, guid: b919c9791c5c66246b868c199c7e8d0e, type: 2}
+  totalSize: 94
+  centerSize: 10
+  extent: 42
+  mapElevationScale: 29
+  mapElevationPower: 1.42
+  mapElevationDamping: 0.215
+  lacunarity: 3
+  octaves: 1
+  fractalType: 0
+  noiseType: 3
+  strata:
+  - name: Core
+    size: 10
+    scale: 68.9
+    power: 1.22
+    blockDistribution:
+    - {fileID: 11400000, guid: 2cce316696053e64bbcccb4479c7ad53, type: 2}
+  - name: Top
+    size: 40
+    scale: 100
+    power: 0.94
+    blockDistribution:
+    - {fileID: 11400000, guid: 3b1036fc03f8ff743bb6fc9ef02a0d84, type: 2}
+    - {fileID: 11400000, guid: 7aa9229caa1d723409f8b1cb4b0c1108, type: 2}
+    - {fileID: 11400000, guid: 3b1036fc03f8ff743bb6fc9ef02a0d84, type: 2}
+    - {fileID: 11400000, guid: 7aa9229caa1d723409f8b1cb4b0c1108, type: 2}
+    - {fileID: 11400000, guid: 3b1036fc03f8ff743bb6fc9ef02a0d84, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - name: Top
+    size: 2
+    scale: 100
+    power: 0.94
+    blockDistribution:
+    - {fileID: 11400000, guid: 3b1036fc03f8ff743bb6fc9ef02a0d84, type: 2}
+    - {fileID: 11400000, guid: 7aa9229caa1d723409f8b1cb4b0c1108, type: 2}
+    - {fileID: 11400000, guid: 3b1036fc03f8ff743bb6fc9ef02a0d84, type: 2}
+    - {fileID: 11400000, guid: 7aa9229caa1d723409f8b1cb4b0c1108, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}

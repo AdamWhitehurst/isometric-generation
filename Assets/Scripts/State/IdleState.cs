@@ -7,24 +7,24 @@ using FauxGravity;
 namespace State {
     [Serializable]
     public class IdleState : BaseState {
-        private KinematicBody controller;
+        private Character character;
 
-        public IdleState(KinematicBody controller) : base(controller.gameObject) {
-            this.controller = controller;
+        public IdleState(Character character) : base(character.gameObject) {
+            this.character = character;
         }
 
         public override Type Tick() {
-            bool actionInput = controller.CaptureActionInput();
+            bool actionInput = character.CaptureActionInput();
 
             if (actionInput) {
                 return typeof(ActionState);
             }
 
-            bool moving = controller.HandleMoveForward();
-            if (controller.IsGrounded()) {
-                float jumpInput = controller.CaptureJumpInput();
+            bool moving = character.HandleMoveForward();
+            if (character.IsGrounded) {
+                float jumpInput = character.CurrentJumpInput;
                 if (jumpInput != 0) {
-                    controller.Jump();
+                    character.Jump();
                     return typeof(JumpingState);
                 }
 
@@ -33,13 +33,13 @@ namespace State {
                 return typeof(FallingState);
             }
 
-            controller.anim.SetFloat("MoveSpeed", 0);
+            character.animator.SetFloat("MoveSpeed", 0);
             return null;
         }
 
         public override void OnEnter() {
-            controller.anim.SetFloat("MoveSpeed", 0);
-            controller.anim.SetBool("Grounded", true);
+            character.animator.SetFloat("MoveSpeed", 0);
+            character.animator.SetBool("Grounded", true);
         }
     }
 }

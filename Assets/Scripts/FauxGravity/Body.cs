@@ -6,24 +6,27 @@ namespace FauxGravity {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
     public class Body : MonoBehaviour {
+        public Vector3 targetUp;
+
+        public Vector3 targetForward;
 
         [SerializeField] protected IAttractor attractor;
-        public Vector3 targetUp;
-        public LayerMask terrainMask;
 
-        public float groundedRaycastVerticalOffset = 0.1f;
-        public float maxCastDistance = 0.1f;
-        public float horizontalRayDistanceModifier = 0.8f;
+        public bool IsGrounded => _isGrounded;
+        public Rigidbody rigidBody { get; protected set; }
+        public Collider bodyCollider { get; protected set; }
 
-        public float sphereCastRadius = 0.05f;
-        public Rigidbody rb { get; protected set; }
-        public Collider col { get; protected set; }
-        void Start() {
-            rb = GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-            rb.useGravity = false;
+        [SerializeField] protected FloatReference _sphereCastRadius = new FloatReference();
+        [SerializeField] protected FloatReference _maxCastDistance = new FloatReference();
 
-            col = GetComponent<CapsuleCollider>();
+        [SerializeField] protected bool _isGrounded;
+
+        protected virtual void Start() {
+            rigidBody = GetComponent<Rigidbody>();
+            // rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rigidBody.useGravity = false;
+
+            bodyCollider = GetComponent<Collider>();
         }
 
         public virtual void OnTriggerEnter(Collider other) {
@@ -31,6 +34,7 @@ namespace FauxGravity {
                 IAttractor att = other.transform.parent.GetComponent<IAttractor>();
                 if (att != null) {
                     attractor = att;
+                    this.transform.parent = att.gameObject.transform;
                 }
             }
         }
@@ -38,58 +42,39 @@ namespace FauxGravity {
         public virtual void OnTriggerExit(Collider other) {
             if (attractor != null && other.gameObject.GetInstanceID() == attractor.gameObject.GetInstanceID()) {
                 attractor = null;
+                this.transform.parent = null;
             }
         }
 
         protected virtual void FixedUpdate() {
             if (attractor != null) {
 
-                var newTargetUp = attractor.Attract(this);
-                if (newTargetUp != transform.up) {
-                    // Debug.DrawRay(transform.position, targetUp, Color.blue, 0.01f);
-
-                    targetUp = newTargetUp;
-                }
+                var gravityForce = attractor.Attract(this);
+                targetUp = -gravityForce.normalized;
+                // Debug.DrawRay(transform.position, targetUp, Color.red, 0.01f);
+                AddGravityForce(gravityForce);
 
             }
+            UpdateGrounded();
+            OrientSelf();
         }
         public virtual void AddGravityForce(Vector3 gravity) {
-
-            rb.AddForce(-transform.up * gravity.magnitude, ForceMode.Acceleration);
-
-            // Debug.DrawRay(transform.position, -transform.up, Color.green, 0.01f);
+            rigidBody.AddForce(gravity, ForceMode.Acceleration);
         }
-        public virtual bool IsGrounded() {
-            if (attractor == null) return false;
 
-            // Vector3 originC = transform.position + (transform.up * groundedRaycastVerticalOffset);
-            Vector3 originFL = transform.position + (transform.up * groundedRaycastVerticalOffset) + (transform.forward * sphereCastRadius) + (-transform.right * sphereCastRadius);
-            Vector3 originFR = transform.position + (transform.up * groundedRaycastVerticalOffset) + (transform.forward * sphereCastRadius) + (transform.right * sphereCastRadius);
-            Vector3 originRL = transform.position + (transform.up * groundedRaycastVerticalOffset) + (-transform.forward * sphereCastRadius) + (-transform.right * sphereCastRadius);
-            Vector3 originRR = transform.position + (transform.up * groundedRaycastVerticalOffset) + (-transform.forward * sphereCastRadius) + (transform.right * sphereCastRadius);
+        protected virtual void OrientSelf() {
+            var targetRotation = Quaternion.FromToRotation(transform.up, targetUp) * rigidBody.rotation;
+            rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation, targetRotation, 5f * Time.fixedDeltaTime);
+        }
 
-            // RaycastHit c;
-            RaycastHit fl;
-            RaycastHit fr;
-            RaycastHit rl;
-            RaycastHit rr;
-
-            // Physics.Raycast(originC, -targetUp, out c, maxCastDistance, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
-            Physics.Raycast(originFL, -transform.up, out fl, maxCastDistance, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
-            Physics.Raycast(originFR, -transform.up, out fr, maxCastDistance, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
-            Physics.Raycast(originRL, -transform.up, out rl, maxCastDistance, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
-            Physics.Raycast(originRR, -transform.up, out rr, maxCastDistance, LayerMask.GetMask("World"), QueryTriggerInteraction.Collide);
-
-            if (fl.collider != null || fr.collider != null || rl.collider != null || rr.collider != null) {
-                // Debug.DrawRay(originC, fl.normal, Color.white, 0.01f);
-                // Debug.DrawRay(originFL, fl.normal, Color.white, 0.01f);
-                // Debug.DrawRay(originFR, fr.normal, Color.white, 0.01f);
-                // Debug.DrawRay(originRL, rl.normal, Color.white, 0.01f);
-                // Debug.DrawRay(originRR, rr.normal, Color.white, 0.01f);
-                return true;
+        private void UpdateGrounded() {
+            RaycastHit hit;
+            if (Physics.SphereCast(bodyCollider.bounds.center, _sphereCastRadius, -transform.up, out hit, _maxCastDistance)) {
+                _isGrounded = true;
+            } else {
+                _isGrounded = false;
             }
-
-            return false;
         }
     }
+
 }

@@ -7,25 +7,25 @@ using FauxGravity;
 namespace State {
     [Serializable]
     public class FallingState : BaseState {
-        private KinematicBody controller;
+        private Character character;
 
 
-        public FallingState(KinematicBody controller) : base(controller.gameObject) {
-            this.controller = controller;
+        public FallingState(Character character) : base(character.gameObject) {
+            this.character = character;
         }
 
         public override Type Tick() {
-            var grounded = controller.IsGrounded();
+            var grounded = character.IsGrounded;
             if (!grounded) {
-                controller.HandleMoveForward();
+                character.HandleMoveForward();
                 return null;
             }
             return typeof(IdleState);
         }
 
         public override void OnEnter() {
-            controller.anim.SetBool("Grounded", false);
-            controller.anim.SetFloat("MoveSpeed", 0);
+            character.animator.SetBool("Grounded", false);
+            character.animator.SetFloat("MoveSpeed", 0);
         }
     }
 }
